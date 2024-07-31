@@ -9,6 +9,8 @@ import { auth } from "@clerk/nextjs/server";
 export async function createCheckoutSession(userDetails: UserDetails) {
     // auth().protect(); OR
 
+    console.log("--- Entering createCheckoutSession ---");
+
     const { userId } = await auth();
     if (!userId) {
         throw new Error("Unauthorized access or User not found.");
@@ -20,9 +22,12 @@ export async function createCheckoutSession(userDetails: UserDetails) {
     const user = await adminDb.collection("users").doc(userId).get();
     stripeCustomerId = user.data()?.stripeCustomerId;
 
+    console.log(`--- Logging stripeCustomerId: ${stripeCustomerId} ---`)
+
     // create new customer on Stripe if none exists.
     if (!stripeCustomerId) {
         // create a new customer...server side
+        console.log(`--- No Stripe CustomerId. Creating new customer ---`)
         const customer = await stripe.customers.create({
             email: userDetails.email,
             name: userDetails.name,

@@ -44,7 +44,7 @@ function PricingPage() {
 
       console.log(`--- Redirecting to Checkout Page....from PricingPage ---`);
       await stripe?.redirectToCheckout({
-        sessionId,
+        sessionId
       })
 
     })
@@ -68,7 +68,7 @@ function PricingPage() {
         </p>
 
         {/* Pricing Cards */}
-        <div className="max-w-md mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 md:max-w-2xl gap-8 lg:max-w-4xl">
+        <div className="max-w-md mx-auto mt-10 grid grid-cols-1 md:grid-cols-3 md:max-w-3xl gap-8 lg:max-w-4xl">
           {/* FREE Tier */}
           <div className="ring-1 ring-purple-600 rounded-3xl p-8 h-fit pb-12">
             <h3 className="text-lg font-semibold leading-8 text-gray-900">
@@ -176,6 +176,70 @@ function PricingPage() {
               </li>
             </ul>
           </div>
+
+          {/* PRO Plus Tier */}
+          <div className="ring-1 ring-purple-600 rounded-3xl p-8 h-fit pb-12">
+            <h3 className="text-lg font-semibold leading-8 text-gray-900">
+              PRO Plus
+            </h3>
+            <p className="mt-4 text-sm leading-6 text-gray-600">
+            Maximise productivity. Get PRO Features AND More!!
+            </p>
+            <p className="mt-6 flex items-baseline gap-x-1">
+              <span className="text-4xl font-bold tracking-tight text-gray-900">
+                $11.99
+              </span>
+              <span className="text-sm font-semi-bold leading-6 text-gray-600">
+                per month
+              </span>              
+            </p>
+
+            <Button
+              className="
+              bg-indigo-600 
+              w-full 
+              text-white shadow-sm 
+              hover:bg-indigo-500 
+              mt-6 
+              rounded-md 
+              px-3 py-2 
+              text-center text-sm 
+              font-semibold 
+              leading-6 
+              focus-visible:outline 
+              focus-visible:outline-2 
+              focus-visible:outline-offset-2 
+              focus-visible:outline-indigo-600"
+              disabled={loading || isPending}
+              onClick={handleUpgrade}
+            >
+              {isPending || loading
+                ? "Loading..."
+                : hasActiveMembership
+                ? "Manage Plan"
+                : "Upgrade to PRO Plus"}
+            </Button>            
+
+            <ul
+              role="list"
+              className="mt-8 space-y-3 text-sm leading-6 text-gray-600"
+            >
+              <li className="flex gap-x-3">
+                <CheckIcon className="h-6 w-5 flex-none text-white text-xs font-semibold bg-green-500 rounded-full" />{" "}
+                2 Documents
+              </li>
+              <li className="flex gap-x-3">
+                <CheckIcon className="h-6 w-5 flex-none text-white text-xs font-semibold bg-green-500 rounded-full" />{" "}
+                Up to 3 messages per document
+              </li>
+              <li className="flex gap-x-3">
+                <CheckIcon className="h-6 w-5 flex-none text-white text-xs font-semibold bg-green-500 rounded-full" />{" "}
+                Try out the AI chat functionality
+              </li>
+            </ul>
+          </div>                    
+          {/* PRO Plus Tier */}
+
         </div>
       </div>
     </div>

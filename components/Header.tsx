@@ -23,7 +23,19 @@ function Header() {
 
       <SignedIn>
         <div className="flex items-center space-x-2">
-          <Button asChild variant="link" className="hidden md:flex">
+          <Button asChild variant="outline" className="          
+          bg-indigo-600 
+          w-full 
+          text-white shadow-sm 
+          hover:bg-indigo-500 
+          rounded-md 
+          text-center 
+          text-sm 
+          font-semibold           
+          focus-visible:outline 
+          focus-visible:outline-2 
+          focus-visible:outline-offset-2 
+          focus-visible:outline-indigo-600">
             <Link href="/dashboard/upgrade">Pricing</Link>
           </Button>
 
