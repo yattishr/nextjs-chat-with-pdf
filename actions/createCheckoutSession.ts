@@ -40,20 +40,20 @@ export async function createCheckoutSession(userDetails: UserDetails) {
             stripeCustomerId: customer.id,
         })
         
-        // update the user with the new stripeCustomerId
-        await adminDb.collection("users").doc(userId).update({
-            stripeCustomerId,
-        });
-
         stripeCustomerId = customer.id;
+
+        // // update the user with the new stripeCustomerId
+        // await adminDb.collection("users").doc(userId).update({
+        //     stripeCustomerId
+        // });
     }
     
-    // cretae Stripe checkout session
+    // create Stripe checkout session
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card", "amazon_pay"],
         line_items: [
             {
-                price: "prod_QZ41aFToQqv8Qq",
+                price: "price_1PhvtcIFKckeazHET3B8oFs9",
                 quantity: 1,
             }
         ],
@@ -61,7 +61,7 @@ export async function createCheckoutSession(userDetails: UserDetails) {
         customer: stripeCustomerId,
         success_url: `${getBaseUrl()}/dashboard?upgrade=true`,
         cancel_url: `${getBaseUrl()}/upgrade`
-    })
+    });
 
     // return the session id
     return session.id;

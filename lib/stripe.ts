@@ -9,4 +9,6 @@ if (!stripeSecretKey) {
 
 const stripe = new Stripe(stripeSecretKey);
 
+console.log(`--- Entering stripe.ts..Logging stripe key: ${stripe} ---`)
+
 export default stripe;
