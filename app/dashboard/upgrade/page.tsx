@@ -50,6 +50,17 @@ function PricingPage() {
     })
   };
 
+  const handleUpgradeProPlus = () => {
+    if (!user) return;
+
+    const userDetails: UserDetails = {
+      email: user.primaryEmailAddress?.toString()!,
+      name: user.fullName!,
+    };
+
+    console.log(`Logging userDetails: ${JSON.stringify(userDetails)} from PricingPage`)
+  }
+
   return (
     <div>
       <div className="py-24 sm:py-32">
@@ -136,7 +147,7 @@ function PricingPage() {
               focus-visible:outline-offset-2 
               focus-visible:outline-indigo-600"
               disabled={loading || isPending}
-              onClick={handleUpgrade}
+              onClick={handleUpgradeProPlus}
             >
               {isPending || loading
                 ? "Loading..."
