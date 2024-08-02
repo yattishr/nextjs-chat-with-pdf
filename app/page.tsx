@@ -1,122 +1,110 @@
 import Image from "next/image";
-import "./globals.css";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import {
   BrainCogIcon,
   GlobeIcon,
   MonitorSmartphoneIcon,
   ServerCogIcon,
   ZapIcon,
-  MoonIcon,
-  SunIcon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 const features = [
   {
-    name: "Store your PDF Documents",
-    description: "Keep all your important PDF files securely stored",
+    name: "Secure PDF Storage",
+    description: "Safely store and organize all your important PDFs in one place",
     icon: GlobeIcon,
   },
   {
-    name: "Chat with your PDFs",
-    description: "Chat with your PDFs using AI",
+    name: "Interactive PDF Conversations",
+    description: "Engage in dynamic, AI-powered chats with your document content",
     icon: BrainCogIcon,
   },
   {
-    name: "Summarize your PDFs",
-    description: "Summarize your PDFs using AI",
+    name: "Instant Document Summaries",
+    description: "Get quick, AI-generated overviews of lengthy documents in seconds",
     icon: MonitorSmartphoneIcon,
   },
   {
-    name: "Ask any question about your PDFs",
-    description: "Ask any question about your PDFs using AI",
+    name: "Intelligent Q&A",
+    description: "Extract precise information with AI-powered answers to any question",
     icon: ServerCogIcon,
   },
   {
-    name: "Powered by OpenAI",
-    description: "Powered by OpenAI",
+    name: "OpenAI Integration",
+    description: "Harness the power of advanced language models for accurate insights",
     icon: ZapIcon,
   },
   {
-    name: "Open Source",
-    description: "Open Source",
+    name: "Open Source Transparency",
+    description: "Contribute to and benefit from our collaborative, community-driven platform",
     icon: BrainCogIcon,
   },
   {
-    name: "Free to use",
-    description: "Free to use",
+    name: "Cost-Effective Solution",
+    description: "Access premium features without breaking the bank",
     icon: MonitorSmartphoneIcon,
   },
   {
-    name: "Fast",
-    description: "Fast",
+    name: "Blazing Fast Performance",
+    description: "Experience swift document processing and near-instant responses",
     icon: ServerCogIcon,
   },
 ];
 
 export default function Home() {
-
   return (
-    <main className="flex-1 overflow-scroll p-2 lg:p-5 bg-gradient-to-bl from-white to-indigo-600">
-      <div className="bg-white py-24 sm:py-32 rounded-md drop-shadow-xl">
-        <div className="flex flex-col justify-center items-center mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl sm:text-center">
-            <h2 className="text-base font-semibold leading-7 text-indigo-600">
-              Your interactive Document Companion
-            </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Transform your PDFs into interactive conversations.
+    <main className="flex-1 overflow-auto bg-gradient-to-bl from-white to-indigo-600">
+      <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl w-full space-y-16">
+          {/* Hero Section */}
+          <div className="text-center">
+            <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6">
+              Transform your PDFs into
+              <span className="text-indigo-600"> interactive conversations</span>
+            </h1>
+            <p className="mt-6 text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto">
+              Introducing <span className="font-bold text-indigo-600">Intelli DOC</span>.
+              Upload your document, and our AI will answer questions, summarize content, and more!
             </p>
-            <p className="mt-6 text-lg leading-0 text-gray-600">
-              Introducing{" "}
-              <span className="font-bold text-indigo-600">Chat with PDFs.</span>
-              <br />
-              <br /> Upload your document, and our chatbot will answer
-              questions, summarize content, and answer all your Questions! Ideal
-              for everyone{" "}
-              <span className="font-bold text-indigo-600">
-                Chat with PDF
-              </span>{" "}
-              turns static documents into{" "}
-              <span className="font-bold">dynamic conversations</span>,
-              enhancing productivity 10x fold effortlessly.
-            </p>
+            <Button asChild className="mt-10 text-lg px-8 py-3">
+              <Link href="/dashboard">Get Started 🚀</Link>
+            </Button>
           </div>
-          <Button asChild className="mt-10">
-            <Link href="/dashboard">Get Started 🔥</Link>
-          </Button>
-        </div>
 
-        <div className="relative overflow-hidden pt-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          {/* Screenshot Section */}
+          <div className="relative">
             <Image
               alt="App screenshot"
               src="https://i.imgur.com/VciRSTI.jpeg"
               width={2432}
               height={1442}
-              className="mb-[-0%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"
+              className="rounded-xl shadow-2xl ring-1 ring-gray-900/10"
             />
-            <div aria-hidden="true" className="relative">
-              <div className="absolute bottom-0 -inset-x-32 bg-gradient-to-t from-white/95 pt-[5%]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent" />
+          </div>
+
+          {/* Features Section */}
+          <div className="bg-white py-16 sm:py-24 rounded-lg shadow-xl">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
+                Powerful Features at Your Fingertips
+              </h2>
+              <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+                {features.map((feature) => (
+                  <div key={feature.name} className="relative pl-16">
+                    <dt className="text-base font-semibold leading-7 text-gray-900">
+                      <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </div>
+                      {feature.name}
+                    </dt>
+                    <dd className="mt-2 text-base leading-7 text-gray-600">{feature.description}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
-        </div>
-        <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 md:mt-24 lg:px-8">
-          <dl className="grid grid-cols-1 gap-x-8 gap-y-10 text-base leading-7 text-gray-600 sm:grid-cols-2 lg:grid-cols-4">
-            {features.map((feature) => (
-              <div key={feature.name} className="relative pl-9">
-                <dt className="inline font-semibold text-gray-900">
-                  <feature.icon
-                    className="absolute top-1 left-1 h-5 w-5 text-indigo-600"
-                    aria-hidden="true"
-                  />
-                  {feature.name}
-                </dt>{" "}
-                <dd className="inline">{feature.description}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </div>
     </main>
