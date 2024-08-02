@@ -23,7 +23,7 @@ function Header() {
         <div className="flex justify-between items-center h-16">
           <Link href="/dashboard" className="flex items-center">
             <span className="text-2xl font-bold text-gray-900 dark:text-white">
-              Intelli <span className="text-indigo-600 dark:text-indigo-400">DOC</span>
+              Intelli <span className="text-purple-600 dark:text-indigo-400">DOC</span>
             </span>
           </Link>
 
