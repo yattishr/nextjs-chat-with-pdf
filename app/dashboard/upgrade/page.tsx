@@ -20,6 +20,10 @@ function PricingPage() {
   const { hasActiveMembership, loading } = useSubscription();
   const [isPending, startTransition] = useTransition();
 
+  console.log(
+    `Logging hasActiveMembership from Upgrade page: ${hasActiveMembership}`
+  );
+
   const handleUpgrade = () => {
     if (!user) return;
 
@@ -28,9 +32,13 @@ function PricingPage() {
       name: user.fullName!,
     };
 
-    console.log(`Logging userDetails: ${JSON.stringify(userDetails)} from PricingPage`)
+    console.log(
+      `Logging userDetails: ${JSON.stringify(userDetails)} from PricingPage`
+    );
 
     startTransition(async () => {
+      console.log("--- Entering startTransition from PricingPage ---");
+
       const stripe = await getStripe();
       console.log(`Logging stripe: ${JSON.stringify(stripe)} from PricingPage`);
 
@@ -41,13 +49,11 @@ function PricingPage() {
       const sessionId = await createCheckoutSession(userDetails);
       console.log(`Logging sessionId: ${sessionId} from PricingPage`);
 
-
       console.log(`--- Redirecting to Checkout Page....from PricingPage ---`);
       await stripe?.redirectToCheckout({
-        sessionId
-      })
-
-    })
+        sessionId,
+      });
+    });
   };
 
   const handleUpgradeProPlus = () => {
@@ -58,8 +64,10 @@ function PricingPage() {
       name: user.fullName!,
     };
 
-    console.log(`Logging userDetails: ${JSON.stringify(userDetails)} from PricingPage`)
-  }
+    console.log(
+      `Logging userDetails: ${JSON.stringify(userDetails)} from PricingPage`
+    );
+  };
 
   return (
     <div>
@@ -153,7 +161,7 @@ function PricingPage() {
                 ? "Loading..."
                 : hasActiveMembership
                 ? "Manage Plan"
-                : "Upgrade to PRO"}              
+                : "Upgrade to PRO"}
             </Button>
 
             <ul
@@ -194,7 +202,7 @@ function PricingPage() {
               PRO Plus
             </h3>
             <p className="mt-4 text-sm leading-6 text-gray-600">
-            Maximise productivity. Get PRO Features AND More!!
+              Maximise productivity. Get PRO Features AND More!!
             </p>
             <p className="mt-6 flex items-baseline gap-x-1">
               <span className="text-4xl font-bold tracking-tight text-gray-900">
@@ -202,7 +210,7 @@ function PricingPage() {
               </span>
               <span className="text-sm font-semi-bold leading-6 text-gray-600">
                 per month
-              </span>              
+              </span>
             </p>
 
             <Button
@@ -221,15 +229,9 @@ function PricingPage() {
               focus-visible:outline-2 
               focus-visible:outline-offset-2 
               focus-visible:outline-indigo-600"
-              disabled={loading || isPending}
-              onClick={handleUpgrade}
-            >
-              {isPending || loading
-                ? "Loading..."
-                : hasActiveMembership
-                ? "Manage Plan"
-                : "Upgrade to PRO Plus"}
-            </Button>            
+              disabled={true}
+              onClick={handleUpgradeProPlus}
+            >Upgrade to Pro PLUS</Button>
 
             <ul
               role="list"
@@ -248,9 +250,8 @@ function PricingPage() {
                 Try out the AI chat functionality
               </li>
             </ul>
-          </div>                    
+          </div>
           {/* PRO Plus Tier */}
-
         </div>
       </div>
     </div>

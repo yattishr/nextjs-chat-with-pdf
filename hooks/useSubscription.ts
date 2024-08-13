@@ -29,12 +29,21 @@ function useSubscription() {
   );
 
   useEffect(() => {
+    console.log(`--- Entering useEffect on useSubscription ---`)
+
+    console.log(`--- Logging snapshot from useSubscription: ${JSON.stringify(snapshot)} ---`)
+
     if (!snapshot) return;
 
     const data = snapshot.data();
+    console.log(`--- Logging data from useSubscription: ${JSON.stringify(data)} ---`)
+
     if (!data) return;
 
-    sethasActiveMembership(data.activeMembership);
+    sethasActiveMembership(data.hasActiveMembership);
+
+    console.log(`Logging hasActiveMembership from useSubscription: ${data.hasActiveMembership}`);
+
   }, [snapshot]);
 
   // checks to see whether the users files are over the limit.

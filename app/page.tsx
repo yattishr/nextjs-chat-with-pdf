@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import FloatingBubbles from "@/components/FloatingBubbles";
+
 import {
   BrainCogIcon,
   GlobeIcon,
@@ -54,9 +56,10 @@ const features = [
 
 export default function Home() {
   return (
-    <main className="flex-1 overflow-auto bg-gradient-to-bl from-white to-indigo-600">
+    <main className="flex-1 overflow-scroll p-2 lg:p-5 bg-gradient-to-bl from-white to-indigo-600">
+      <FloatingBubbles />
       <div className="min-h-screen flex flex-col justify-center items-center py-12 sm:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl w-full space-y-16">
+        <div className="max-w-7xl w-full space-y-16 relative z-10">
           {/* Hero Section */}
           <div className="text-center">
             <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6">
@@ -64,8 +67,8 @@ export default function Home() {
               <span className="text-indigo-600"> interactive conversations</span>
             </h1>
             <p className="mt-6 text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto">
-              Introducing <span className="font-bold text-indigo-600">Intelli DOC</span>.
-              Upload your document, and our AI will answer questions, summarize content, and more!
+              Introducing <span className="font-bold text-indigo-600">Bubbles Doc</span>.
+              Upload your document, and our intelligent AI will answer questions, summarize content, and more!
             </p>
             <Button asChild className="mt-10 text-lg px-8 py-3">
               <Link href="/dashboard">Get Started 🚀</Link>
@@ -73,7 +76,7 @@ export default function Home() {
           </div>
 
           {/* Screenshot Section */}
-          <div className="relative">
+          {/* <div className="relative">
             <Image
               alt="App screenshot"
               src="https://i.imgur.com/VciRSTI.jpeg"
@@ -82,10 +85,10 @@ export default function Home() {
               className="rounded-xl shadow-2xl ring-1 ring-gray-900/10"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent" />
-          </div>
+          </div> */}
 
           {/* Features Section */}
-          <div className="bg-white py-16 sm:py-24 rounded-lg shadow-xl">
+          <div className="bg-white/80 py-16 sm:py-24 rounded-lg shadow-xl">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
                 Powerful Features at Your Fingertips
