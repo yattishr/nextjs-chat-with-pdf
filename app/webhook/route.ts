@@ -8,6 +8,8 @@ export async function POST(req: NextRequest) {
   const body = await req.text();
   const signature = headersList.get("stripe-signature");
 
+  console.log("--- route.ts: Stripe webhook received ---");
+
   if (!signature) {
     return new Response("Stripe signature header not found", { status: 400 });
   }
@@ -41,6 +43,8 @@ export async function POST(req: NextRequest) {
     }
   };
 
+  console.log(`--- route.ts: Received event type: ${event.type} ---`);
+
   switch (event.type) {
     case "checkout.session.completed":
     case "payment_intent.succeeded": {
@@ -48,7 +52,7 @@ export async function POST(req: NextRequest) {
       const customerId = invoice.customer as string;
 
       const userDetails = await getUserDetails(customerId);
-      if (!userDetails) {
+      if (!userDetails?.id) {
         console.log("--- route.ts: User not found ---");
         return new NextResponse("User not found", { status: 404 });
       }
@@ -67,7 +71,7 @@ export async function POST(req: NextRequest) {
       const cusotmerId = subscription.customer as string;
 
       const userDetails = await getUserDetails(cusotmerId);
-      if (!userDetails) {
+      if (!userDetails?.id) {
         console.log("--- route.ts: User not found ---");
         return new NextResponse("User not found", { status: 404 });
       }

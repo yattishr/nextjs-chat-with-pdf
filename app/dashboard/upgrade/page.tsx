@@ -1,6 +1,7 @@
 "use client";
 
 import { createCheckoutSession } from "@/actions/createCheckoutSession";
+import { createStripePortal } from "@/actions/createStripePortal";
 import { Button } from "@/components/ui/button";
 import useSubscription from "@/hooks/useSubscription";
 import getStripe from "@/lib/stripe-js";
@@ -44,11 +45,15 @@ function PricingPage() {
 
       if (hasActiveMembership) {
         // create stripe portal.......
+        const stripePortalUrl = await createStripePortal();
+        return router.push(stripePortalUrl)
       }
 
+      // create a Stripe session.
       const sessionId = await createCheckoutSession(userDetails);
       console.log(`Logging sessionId: ${sessionId} from PricingPage`);
 
+      // redirect to the Stripe checkout screen.
       console.log(`--- Redirecting to Checkout Page....from PricingPage ---`);
       await stripe?.redirectToCheckout({
         sessionId,
@@ -155,7 +160,7 @@ function PricingPage() {
               focus-visible:outline-offset-2 
               focus-visible:outline-indigo-600"
               disabled={loading || isPending}
-              onClick={handleUpgradeProPlus}
+              onClick={handleUpgrade}
             >
               {isPending || loading
                 ? "Loading..."

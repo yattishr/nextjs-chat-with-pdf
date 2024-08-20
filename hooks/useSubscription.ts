@@ -28,36 +28,33 @@ function useSubscription() {
     user && collection(db, "users", user?.id, "files")
   );
 
-  useEffect(() => {
-    console.log(`--- Entering useEffect on useSubscription ---`)
+  console.log(`--- Displaying filesSnapshot from useSubscription: ${JSON.stringify(filesSnapshot)} ---`)
 
-    console.log(`--- Logging snapshot from useSubscription: ${JSON.stringify(snapshot)} ---`)
+  useEffect(() => {
+    console.log(`--- Entering useEffect on useSubscription ---`);
+
+    console.log(`--- Logging snapshot from useSubscription: ${JSON.stringify(snapshot)} ---`);
 
     if (!snapshot) return;
 
     const data = snapshot.data();
-    console.log(`--- Logging data from useSubscription: ${JSON.stringify(data)} ---`)
+    console.log(`--- Logging data from useSubscription: ${JSON.stringify(data)} ---`);
 
     if (!data) return;
 
     sethasActiveMembership(data.hasActiveMembership);
 
     console.log(`Logging hasActiveMembership from useSubscription: ${data.hasActiveMembership}`);
-
   }, [snapshot]);
 
   // checks to see whether the users files are over the limit.
   useEffect(() => {
     if (!filesSnapshot || hasActiveMembership === null) return;
-    
+
     const files = filesSnapshot.docs;
     const usersLimit = hasActiveMembership ? PRO_LIMIT : FREE_LIMIT;
 
-    console.log(
-      "Checking if user is over the file limit",
-      files.length,
-      usersLimit
-    );
+    console.log("Checking if user is over the file limit", files.length, usersLimit);
 
     setisOverFileLimit(files.length >= usersLimit);
   }, [filesSnapshot, hasActiveMembership, PRO_LIMIT, FREE_LIMIT]); // include everything that the useEffect uses in the dependancy array.

@@ -8,7 +8,7 @@ console.log(
 );
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY === undefined) {
-  throw new Error("STRIPE_PUBLISHABLE_KEY key not found.");
+  throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY key not found.");
 }
 
 const getStripe = (): Promise<Stripe | null> => {
