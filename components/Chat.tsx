@@ -11,6 +11,7 @@ import { collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
 import { askQuestion } from "@/actions/askQuestion";
 import ChatMessage from "./ChatMessage";
+import { useToast } from "./ui/use-toast";
 // import { ChatMessage } from "@langchain/core/messages";
 
 export type Message = {
@@ -26,6 +27,7 @@ function Chat({ id }: { id: string }) {
   const [isPending, startTransition] = useTransition();
   const [messages, setMessages] = useState<Message[]>([]);
   const bottomOfChatRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   const [snapshot, loading, error] = useCollection(
     user &&
@@ -92,6 +94,11 @@ function Chat({ id }: { id: string }) {
 
       if (!success) {
         // toast
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: message,
+        });
 
         setMessages((prev) =>
           prev.slice(0, prev.length - 1).concat([

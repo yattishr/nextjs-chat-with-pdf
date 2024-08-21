@@ -21,7 +21,7 @@ async function Documents() {
 
   return (
     <main className="flex-1 overflow-scroll p-2 lg:p-5 bg-gradient-to-bl from-white to-indigo-900">
-      <FloatingBubbles />
+      {/* <FloatingBubbles /> */}
       <div className="max-w-7xl mx-auto p-6">
         <h1 className="text-3xl font-bold mb-6">Your Documents</h1>
         <div className="bg-white shadow-md rounded-lg overflow-hidden">

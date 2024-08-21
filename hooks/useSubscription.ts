@@ -7,7 +7,7 @@ import { collection, doc } from "firebase/firestore";
 
 // number of documens the user is allowed to have.
 const PRO_LIMIT = 20;
-const FREE_LIMIT = 2;
+const FREE_LIMIT = 3;
 
 function useSubscription() {
   const [hasActiveMembership, sethasActiveMembership] = useState(null);

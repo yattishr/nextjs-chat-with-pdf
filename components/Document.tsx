@@ -2,7 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import byteSize from "byte-size";
-import { FileIcon } from "lucide-react";
+import { FileIcon, TrashIcon } from "lucide-react";
+import useSubscription from "@/hooks/useSubscription";
+import { useTransition } from "react";
+import { DownloadCloud, Trash2Icon } from "lucide-react";
+import { Button } from "./ui/button";
+import deleteDocument from "@/actions/deleteDocument";
 
 function Document({
   id,
@@ -16,6 +21,8 @@ function Document({
   downloadUrl: string;
 }) {
   const router = useRouter();
+  const { hasActiveMembership } = useSubscription();
+  const [isDeleting, startTransition] = useTransition();
 
   // Function to truncate text
   const truncateText = (text: string, maxLength: number) => {
@@ -45,6 +52,38 @@ function Document({
           {byteSize(parseInt(size)).toString()}
         </p>
       </div>
+
+      {/* Action Buttons */}
+      <div className="flex space-x-2 justify-end">
+        {/* 1. Delete document button. */}
+        <Button
+          variant="outline"
+          disabled={isDeleting || !hasActiveMembership}
+          onClick={() => {
+            const prompt = window.confirm("Are you sure you want to delete this document?");
+            if (prompt) {
+              // delete the document
+              startTransition(async () => {
+                await deleteDocument(id);
+              })
+            }
+          }}
+        >
+          <TrashIcon className="h-8 w-8 text-red-500" />
+          {!hasActiveMembership && (
+            <span className="text-red-500 ml-2">PRO Feature</span>
+          )}
+        </Button>
+
+
+        {/* 2. Download Document button. */}
+        <Button variant="secondary" asChild>
+          <a href={downloadUrl} download>
+            <DownloadCloud className="h-8 w-8 text-indigo-600"/>
+          </a>
+        </Button>
+      </div>
+
     </div>
   );
 }
