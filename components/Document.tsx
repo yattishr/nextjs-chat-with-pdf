@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import byteSize from "byte-size";
 import { FileIcon, TrashIcon } from "lucide-react";
 import useSubscription from "@/hooks/useSubscription";
-import { useTransition } from "react";
+import React, { useTransition } from "react";
 import { DownloadCloud, Trash2Icon } from "lucide-react";
 import { Button } from "./ui/button";
 import deleteDocument from "@/actions/deleteDocument";
@@ -23,7 +23,7 @@ function Document({
   const router = useRouter();
   const { hasActiveMembership } = useSubscription();
   const [isDeleting, startTransition] = useTransition();
-
+  
   // Function to truncate text
   const truncateText = (text: string, maxLength: number) => {
     return text.length > maxLength
@@ -60,12 +60,14 @@ function Document({
           variant="outline"
           disabled={isDeleting || !hasActiveMembership}
           onClick={() => {
-            const prompt = window.confirm("Are you sure you want to delete this document?");
+            const prompt = window.confirm(
+              "Are you sure you want to delete this document?"
+            );
             if (prompt) {
               // delete the document
               startTransition(async () => {
                 await deleteDocument(id);
-              })
+              });
             }
           }}
         >
@@ -75,15 +77,16 @@ function Document({
           )}
         </Button>
 
-
         {/* 2. Download Document button. */}
         <Button variant="secondary" asChild>
-          <a href={downloadUrl} download>
+          <a 
+          href={downloadUrl}          
+          download>
             <DownloadCloud className="h-8 w-8 text-indigo-600"/>
           </a>
         </Button>
-      </div>
 
+      </div>
     </div>
   );
 }

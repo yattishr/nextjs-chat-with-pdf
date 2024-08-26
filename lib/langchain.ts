@@ -66,9 +66,7 @@ export async function generateDocs(docId: string) {
     .collection("files")
     .doc(docId)
     .get();
-
-  console.log(`Logging firebaseRef: ${JSON.stringify(firebaseRef)}`)
-
+  
   const downloadUrl = firebaseRef.data()?.downloadURL;
   console.log(`--- Download URL: ${downloadUrl} ---`);
 
@@ -143,6 +141,8 @@ export async function generateEmbeddingsInPineConeVectorStore(docId: string) {
       `--- Storing the embeddings in namespace ${docId} in the ${indexName} Pinecone vector store ---`
     );
 
+    console.log("--- Document uploaded and ready ---");
+
     pineconeVectorStore = await PineconeStore.fromDocuments(
       splitDocs,
       embeddings,
@@ -184,7 +184,7 @@ const generateLangchainCompletion = async (docId: string, question: string) => {
     rephrasePrompt: historyAwarePrompt,
   });
 
-  console.log("Defining a prompt template for answering questions");
+  console.log("--- Defining a prompt template for answering questions ---");
   const historyAwareRetrievalPrompt = ChatPromptTemplate.fromMessages([
     [
       "system",
@@ -212,8 +212,7 @@ const generateLangchainCompletion = async (docId: string, question: string) => {
     input: question,
   });
 
-  // log the result and return the result
-  console.log(reply.answer)
+  // return the result
   return reply.answer;
 };
 

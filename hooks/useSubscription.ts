@@ -28,23 +28,23 @@ function useSubscription() {
     user && collection(db, "users", user?.id, "files")
   );
 
-  console.log(`--- Displaying filesSnapshot from useSubscription: ${JSON.stringify(filesSnapshot)} ---`)
+  // console.log(`--- Displaying filesSnapshot from useSubscription: ${JSON.stringify(filesSnapshot)} ---`)
 
   useEffect(() => {
     console.log(`--- Entering useEffect on useSubscription ---`);
 
-    console.log(`--- Logging snapshot from useSubscription: ${JSON.stringify(snapshot)} ---`);
+    // console.log(`--- Logging snapshot from useSubscription: ${JSON.stringify(snapshot)} ---`);
 
     if (!snapshot) return;
 
     const data = snapshot.data();
-    console.log(`--- Logging data from useSubscription: ${JSON.stringify(data)} ---`);
+    // console.log(`--- Logging data from useSubscription: ${JSON.stringify(data)} ---`);
 
     if (!data) return;
 
     sethasActiveMembership(data.hasActiveMembership);
 
-    console.log(`Logging hasActiveMembership from useSubscription: ${data.hasActiveMembership}`);
+    console.log(`--- Logging hasActiveMembership from useSubscription: ${data.hasActiveMembership} ---`);
   }, [snapshot]);
 
   // checks to see whether the users files are over the limit.

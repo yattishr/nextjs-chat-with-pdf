@@ -30,14 +30,14 @@ async function Documents() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 [&>*]:border [&>*]:border-purple-600 [&>*]:rounded-lg">
             {documentsSnapshot.docs.map((doc) => {
-              const { name, downloadUrl, size } = doc.data();
+              const { name, downloadURL, size } = doc.data();
               return (
                 <Document
                   key={doc.id}
                   id={doc.id}
                   name={name}
                   size={size}
-                  downloadUrl={downloadUrl}
+                  downloadUrl={downloadURL}
                 />
               );
             })}
